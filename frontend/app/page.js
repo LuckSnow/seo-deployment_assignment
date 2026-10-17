@@ -1,4 +1,6 @@
 export const dynamic = "force-dynamic";
+// Allow the free Render instance time to wake up before rendering the catalog.
+export const maxDuration = 60;
 
 const currency = new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" });
 
@@ -7,7 +9,7 @@ async function getProducts() {
   if (!baseUrl) return null;
   try {
     const response = await fetch(`${baseUrl.replace(/\/$/, "")}/api/products`, {
-      cache: "no-store", signal: AbortSignal.timeout(8000)
+      cache: "no-store", signal: AbortSignal.timeout(55000)
     });
     if (!response.ok) return null;
     const data = await response.json();

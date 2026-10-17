@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: nest-api-n25dcat103
+    runtime: node
+    plan: free
+    branch: lam-bai
+    rootDir: backend
+    buildCommand: npm ci
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_VERSION
+        value: 22.22.0
