@@ -4,7 +4,7 @@
 
 ## Ngữ cảnh & Nghiệp vụ (Business Specs)
 
-Bạn đang triển khai website cho cửa hàng nội thất **Nest**. Dự án đã có sẵn giao diện e-commerce và **6 sản phẩm mock**, không cần database.
+Bạn đang triển khai website cho tiệm bánh và café **Mơ Kitchen**. Dự án có giao diện e-commerce và **6 sản phẩm mock**, không cần database.
 
 **Yêu cầu cốt lõi:**
 
@@ -97,7 +97,7 @@ Tham khảo: [Express trên Render](https://render.com/docs/deploy-node-express-
 
 Hoàn thiện `frontend/app/layout.js` bằng **Next.js Metadata API**:
 
-- **Title và description:** thay nội dung mẫu bằng tiêu đề, mô tả phù hợp với cửa hàng Nest.
+- **Title và description:** thay nội dung mẫu bằng tiêu đề, mô tả phù hợp với Mơ Kitchen.
 - **Metadata base và canonical:** dùng `SITE_URL`, trỏ về URL production của frontend.
 - **Open Graph và Twitter Card:** có tiêu đề, mô tả và ảnh chia sẻ PNG/JPG truy cập công khai; Open Graph có URL trang, Twitter dùng `summary_large_image`.
 - Tạo `frontend/app/robots.js` và `frontend/app/sitemap.js`, cho phép thu thập trang production và khai báo đúng URL trang chủ.
