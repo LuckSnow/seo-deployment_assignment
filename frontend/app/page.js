@@ -7,7 +7,8 @@ async function getProducts() {
   if (!baseUrl) return null;
   try {
     const response = await fetch(`${baseUrl.replace(/\/$/, "")}/api/products`, {
-      cache: "no-store", signal: AbortSignal.timeout(8000)
+      cache: "no-store",
+      signal: AbortSignal.timeout(8000)
     });
     if (!response.ok) return null;
     const data = await response.json();
@@ -19,32 +20,58 @@ async function getProducts() {
 
 export default async function Home() {
   const products = await getProducts();
+
   return <>
-    <div className="announcement">Một chút tinh giản. Một tổ ấm của riêng bạn.</div>
+    <div className="announcement">Một chiếc bánh ngon, một ngày dịu dàng hơn ♡</div>
     <header className="header wrap">
-      <a className="brand" href="/" aria-label="Nest — Trang chủ">nest<span>®</span></a>
-      <nav aria-label="Điều hướng chính"><a href="#products">Bộ sưu tập</a><a href="#about">Về Nest</a></nav>
-      <span className="header-note">ĐỒ ĐẸP CHO NHÀ</span>
+      <a className="brand" href="/" aria-label="Mơ — Trang chủ">mơ<span>°</span></a>
+      <nav aria-label="Điều hướng chính">
+        <a href="#menu">Thực đơn</a>
+        <a href="#about">Về Mơ</a>
+      </nav>
+      <a className="header-note" href="#menu">BẾP NHỎ · NIỀM VUI TO</a>
     </header>
     <main>
       <section className="hero wrap">
-        <div className="hero-copy"><p className="eyebrow">THE EVERYDAY COLLECTION / 01</p>
-          <h1>Nhà là nơi<br />mình <em>thấy yên.</em></h1>
-          <p>Những món đồ giản đơn, sắc màu dịu nhẹ. Thêm một chút cảm hứng cho từng góc nhỏ thân quen.</p>
-          <a className="button" href="#products">Khám phá bộ sưu tập <span aria-hidden="true">↗</span></a>
-          <p className="hero-caption">NỘI THẤT · ÁNH SÁNG · TRANG TRÍ</p>
+        <div className="hero-copy">
+          <p className="eyebrow">MỘT CHÚT NGỌT NGÀO / EVERYDAY GOODNESS</p>
+          <h1>Ăn ngon<br />một chút, <em>vui hơn.</em></h1>
+          <p>Bánh thơm mới ra lò, ly nước mát lành và những món ngon làm từ nguyên liệu tử tế — dành cho ngày thường cũng đáng yêu.</p>
+          <a className="button" href="#menu">Ghé xem thực đơn <span aria-hidden="true">↗</span></a>
+          <p className="hero-caption">BÁNH TƯƠI · CÀ PHÊ · MÓN NHỎ</p>
         </div>
-        <div className="hero-art"><div className="arch" /><img src="/images/chair.svg" alt="Minh họa ghế gỗ trong bộ sưu tập Nest" width="400" height="400" /><span className="art-label">Ít hơn, nhưng đủ đầy.</span><span className="art-number">01 — 06</span></div>
+        <div className="hero-art">
+          <div className="hero-sun" />
+          <img src="/images/croissant.svg" alt="Bánh croissant bơ vàng thơm mới ra lò" width="400" height="400" />
+          <span className="art-label">Nướng mới mỗi ngày.</span>
+          <span className="art-number">LÀM BẰNG CẢ TẤM LÒNG</span>
+        </div>
       </section>
-      <section className="catalog wrap" id="products">
-        <div className="section-heading"><div><p className="eyebrow">CHỌN MỘT CHÚT AN YÊN</p><h2>Cho góc nhà của bạn</h2></div><span>{products ? `${products.length} sản phẩm` : "Bộ sưu tập"}</span></div>
-        {products === null ? <div className="notice" role="status">Chưa thể tải bộ sưu tập. Vui lòng thử lại sau.</div> : products.length === 0 ? <p className="notice">Bộ sưu tập đang được cập nhật.</p> : <div className="grid">{products.map(product => <article className="product" key={product.id}>
-          <div className={`product-image ${product.color}`}><img src={`/images/${product.icon}.svg`} alt={`Minh họa ${product.name}`} width="320" height="260" loading="lazy" /><span className="product-code">{product.id.toUpperCase()}</span></div>
-          <p className="category">{product.category}</p><div className="product-title"><h3>{product.name}</h3><span>{currency.format(product.price)}</span></div><p className="description">{product.description}</p>
+      <section className="catalog wrap" id="menu">
+        <div className="section-heading">
+          <div><p className="eyebrow">MÓN ĐƯỢC YÊU THÍCH</p><h2>Hôm nay mình ăn gì?</h2></div>
+          <span>{products ? `${products.length} món ngon` : "Menu nhà Mơ"}</span>
+        </div>
+        {products === null ? <div className="notice" role="status">Mơ chưa lấy được thực đơn. Bạn thử tải lại sau một chút nhé!</div> : products.length === 0 ? <p className="notice">Mơ đang chuẩn bị thêm món ngon. Quay lại sớm nhé!</p> : <div className="grid">{products.map(product => <article className="product" key={product.id}>
+          <div className={`product-image ${product.color}`}>
+            <img src={`/images/${product.icon}.svg`} alt={`Minh họa ${product.name}`} width="320" height="260" loading="lazy" />
+            <span className="product-code">MƠ / {product.id.slice(-2)}</span>
+          </div>
+          <p className="category">{product.category}</p>
+          <div className="product-title"><h3>{product.name}</h3><span>{currency.format(product.price)}</span></div>
+          <p className="description">{product.description}</p>
         </article>)}</div>}
       </section>
-      <section className="about wrap" id="about"><p className="eyebrow">CHUYỆN CỦA NEST</p><h2>Để mỗi ngày về nhà<br />là một niềm vui nhỏ.</h2><p>Nest là cửa hàng nội thất giả lập dành cho bài tập SEO & Deployment. Sản phẩm, giá bán và hình minh họa đều là dữ liệu mẫu; website không nhận đơn hàng.</p></section>
+      <section className="about wrap" id="about">
+        <p className="eyebrow">BẾP NHỎ CỦA MƠ</p>
+        <h2>Ngon lành từ căn bếp,<br />ấm áp đến tận lòng.</h2>
+        <p>Mơ tin những niềm vui giản dị thường bắt đầu từ một món ngon. Đây là cửa hàng bánh và café mô phỏng cho bài tập SEO & Deployment; thực đơn, giá bán và hình minh họa là dữ liệu mẫu.</p>
+      </section>
     </main>
-    <footer className="wrap"><a className="brand" href="/">nest<span>®</span></a><p>E-commerce demo · SEO & Deployment Assignment</p><a href="#products">Về bộ sưu tập ↑</a></footer>
+    <footer className="wrap">
+      <a className="brand" href="/" aria-label="Mơ — Trang chủ">mơ<span>°</span></a>
+      <p>Bếp nhỏ · Những điều ngon lành mỗi ngày</p>
+      <a href="#menu">Xem thực đơn ↑</a>
+    </footer>
   </>;
 }
